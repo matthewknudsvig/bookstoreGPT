@@ -2,7 +2,7 @@
 import { cn } from "@/lib/utils";
 import { useMutation } from '@tanstack/react-query'
 import { nanoid } from "nanoid";
-import { Message } from "postcss";
+import { Message } from "@/lib/validators/message";
 import { FC, HTMLAttributes, useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 
@@ -36,10 +36,10 @@ const ChatInput: FC<ChatInputProps> = ({ className, ...props }) => {
             onKeyDown={(e) => {
                 if(e.key === 'Enter' && !e.shiftKey) {
                     e.preventDefault()
-                    const message = {
-                       id: nanoid(),
-                       isUserInput: true,
-                       text: input
+                    const message: Message = {
+                        id: nanoid(),
+                        isUserMessage: true,
+                        text: input,       
                     }
                     sendMessage(message)
                 }
