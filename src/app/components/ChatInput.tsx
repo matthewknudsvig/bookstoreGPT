@@ -33,6 +33,10 @@ const ChatInput: FC<ChatInputProps> = ({ className, ...props }) => {
                 },
                 body: JSON.stringify({ messages: [message] }),
             })
+
+            if (!response.ok) {
+                throw new Error()
+            }
             return response.body
         },
         onMutate(message) {
@@ -72,6 +76,7 @@ const ChatInput: FC<ChatInputProps> = ({ className, ...props }) => {
         onError(_, message) {
             toast.error('Something went wrong. Please try again.')
             removeMessage(message.id)
+            textareaRef.current?.focus()
         },
     })
 
